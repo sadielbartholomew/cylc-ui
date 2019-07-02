@@ -92,6 +92,11 @@ export default {
     logo: './img/logo.png',
     views: [
       {
+        to: '/suite-views',
+        icon: 'mdi-grid',
+        text: 'Multiple (in panels)'
+      },
+      {
         to: '/suites',
         icon: 'mdi-vector-circle',
         text: 'Suites'

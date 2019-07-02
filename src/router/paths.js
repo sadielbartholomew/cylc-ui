@@ -22,6 +22,14 @@ export default [
     alias: ['/']
   },
   {
+    path: '/suite-views',
+    // Relative to /src/views
+    view: 'SuiteViews',
+    meta: {
+      'layout': 'suite-view'
+    }
+  },
+  {
     path: '/graph',
     // Relative to /src/views
     view: 'Graph',
