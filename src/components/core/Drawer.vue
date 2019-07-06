@@ -106,6 +106,11 @@ export default {
         view: true
       },
       {
+        to: '/todotsuites',
+        icon: 'mdi-vector-circle',
+        text: 'Suites links to Dot View [temp]'
+      },
+      {
         to: '/graph',
         icon: 'mdi-vector-polyline',
         text: 'Graph',
@@ -119,7 +124,7 @@ export default {
       },
       {
         to: '/login',
-        icon: 'mdi-account',
+        icon: 'mdi-lock-open',
         text: 'Log in',
         view: false
       }

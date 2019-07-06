@@ -45,6 +45,21 @@ export default [
     }
   },
   {
+    path: '/todotsuites',
+    view: 'SuitesToDot',
+    meta: {
+      'layout': 'default'
+    }
+  },
+  {
+    path: '/todotsuites/:name',
+    name: 'Dot View',
+    view: 'DotSuite',
+    meta: {
+      'layout': 'default'
+    }
+  },
+  {
     path: '/user-profile',
     name: 'User Profile',
     view: 'UserProfile',
