@@ -52,9 +52,18 @@
                 <v-icon
                     small
                     class="mr-2"
-                    @click="viewSuite(item)"
+                    @click="viewSuiteTreeView(item)"
                 >
-                  mdi-table-edit
+                  mdi-view-list
+                </v-icon>
+              </td>
+              <td class="justify-center">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="viewSuiteDotView(item)"
+                >
+                  mdi-grain
                 </v-icon>
               </td>
             </template>
@@ -105,7 +114,12 @@ export default {
       },
       {
         sortable: false,
-        text: 'Actions',
+        text: 'To Tree View',
+        value: 'actions'
+      },
+      {
+        sortable: false,
+        text: 'To Dot View',
         value: 'actions'
       }
     ],
@@ -129,8 +143,11 @@ export default {
     clearInterval(this.polling)
   },
   methods: {
-    viewSuite(suite) {
-      this.$router.push({ path: `/suites/${suite.name}` });
+    viewSuiteTreeView(suite) {
+      this.$router.push({ path: `/suites/tree/${suite.name}` });
+    },
+    viewSuiteDotView(suite) {
+      this.$router.push({ path: `/suites/dot/${suite.name}` });
     }
   }
 }

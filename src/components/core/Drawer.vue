@@ -108,7 +108,8 @@ export default {
       {
         to: '/todotsuites',
         icon: 'mdi-vector-circle',
-        text: 'Suites links to Dot View [temp]'
+        text: 'Suites links to Dot View [temp]',
+        view: true
       },
       {
         to: '/graph',

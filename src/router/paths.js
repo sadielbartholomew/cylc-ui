@@ -14,7 +14,6 @@ export default [
   },
   {
     path: '/dashboard',
-    // Relative to /src/views
     view: 'Dashboard',
     meta: {
       'layout': 'default'
@@ -22,42 +21,37 @@ export default [
     alias: ['/']
   },
   {
-    path: '/graph',
-    // Relative to /src/views
-    view: 'Graph',
-    meta: {
-      'layout': 'default'
-    },
-    alias: ['/', '/user/:id']
-  },
-  {
     path: '/suites',
+    name: 'My Suites',
     view: 'Suites',
     meta: {
       'layout': 'default'
     }
   },
   {
-    path: '/suites/:name',
-    view: 'Suite',
+    path: '/suites/tree/:name',
+    name: 'Tree View',
+    view: 'TreeSuite',
     meta: {
       'layout': 'default'
     }
   },
   {
-    path: '/todotsuites',
-    view: 'SuitesToDot',
-    meta: {
-      'layout': 'default'
-    }
-  },
-  {
-    path: '/todotsuites/:name',
+    path: '/suites/dot/:name',
     name: 'Dot View',
     view: 'DotSuite',
     meta: {
       'layout': 'default'
     }
+  },
+  {
+    path: '/graph',
+    name: 'Graph View',
+    view: 'Graph',
+    meta: {
+      'layout': 'default'
+    },
+    alias: ['/', '/user/:id']
   },
   {
     path: '/user-profile',
