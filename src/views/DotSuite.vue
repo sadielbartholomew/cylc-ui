@@ -17,7 +17,10 @@
 <status-indicator positive></status-indicator>
 <status-indicator intermediary></status-indicator>
 <status-indicator negative></status-indicator>
-<status-indicator pulse></status-indicator>
+<status-indicator></status-indicator>
+
+<status-indicator active pulse></status-indicator>
+<status-indicator positive pulse></status-indicator>
 
         <material-card
             :text="$t('DotView.tableSubHeader')"
@@ -33,6 +36,14 @@
               :end="end"
               @filter-change="filterChanged"
           >
+
+          <!-- <template slot="state">
+              <span>
+                <i class="mdi mdi-minus" v-if="props.expanded"></i>
+                <i class="mdi mdi-plus" v-else></i>
+              </span>
+          </template> -->
+
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -79,7 +90,23 @@
       start: 0,
       end: 100,
       // TODO: page polling, for the time being until we have websockets/graphql subscriptions
-      polling: null
+      polling: null,
+      // Status indicator icon class to replace each task state with
+      state_icon_mappings: {
+          'runahead': 'intermediary',
+          'waiting': 'intermediary',
+          'held': 'intermediary',
+          'queued': 'intermediary',
+          'expired': 'negative',
+          'ready': '',
+          'submitFailed': 'negative',
+          'submitRetrying': '',
+          'submitted': '',
+          'retrying': '',
+          'running': 'active',
+          'failed': 'negative',
+          'succeeded': 'positive'
+      }
     }),
     methods: {
       filterChanged (filter) {
