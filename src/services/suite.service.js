@@ -16,7 +16,7 @@ const suitesQuery = gql`{
 }
 `;
 
-// query to retrieve all suites
+// query to retrieve all tasks for a given suite
 const tasksQuery = gql`fragment treeNest on FamilyProxy {
   name
   cyclePoint
@@ -137,6 +137,25 @@ export class SuiteService {
       const familyProxies = response.data.familyProxies;
       const tasks = this.transformer.transform(familyProxies);
       return store.dispatch('suites/setTree', tasks);
+    }).catch((error) => { // error is an ApolloError object
+      const alert = new Alert(error.message, null, 'error');
+      return store.dispatch('addAlert', alert);
+    });
+  }
+
+  fetchSuiteDotView(suiteId) {
+    return this.apolloClient.query({
+      query: tasksQuery,
+      variables: {
+        wIds: [suiteId],
+        minDepth: 0,
+        maxDepth: 4
+      },
+      fetchPolicy: 'no-cache'
+    }).then((response) => {
+      const familyProxies = response.data.familyProxies;
+      const tasks = this.transformer.transform(familyProxies);
+      return store.dispatch('suites/setDot', tasks);
     }).catch((error) => { // error is an ApolloError object
       const alert = new Alert(error.message, null, 'error');
       return store.dispatch('addAlert', alert);

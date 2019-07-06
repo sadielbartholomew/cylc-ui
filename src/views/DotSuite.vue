@@ -84,11 +84,11 @@
       },
       fetchSuite() {
         const suiteId = this.$route.params.name
-        suiteService.fetchSuiteTree(suiteId)
+        suiteService.fetchSuiteDotView(suiteId)
         // TODO: to be replaced by websockets
         this.polling = setInterval(() => {
           suiteService.currentTaskIndex += 1
-          suiteService.fetchSuiteTree(suiteId)
+          suiteService.fetchSuiteDotView(suiteId)
         }, 3000)
       }
     },

@@ -1,7 +1,8 @@
 const state = {
   suites: [],
   tasks: [],
-  tree: []
+  tree: [],
+  dot: []
 };
 
 const mutations = {
@@ -13,7 +14,10 @@ const mutations = {
   },
   SET_TREE(state, tree) {
     state.tree = tree;
-  }
+  },
+  SET_DOT(state, dot) {
+    state.dot = dot;
+  },
 };
 
 const actions = {
@@ -25,7 +29,10 @@ const actions = {
   },
   setTree({commit}, tree) {
     commit('SET_TREE', tree);
-  }
+  },
+  setDot({commit}, dot) {
+    commit('SET_DOT', dot);
+  },
 };
 
 const getters = {
@@ -37,6 +44,9 @@ const getters = {
   },
   tree: (state) => {
     return state.tree
+  },
+  dot: (state) => {
+    return state.dot
   }
 };
 
