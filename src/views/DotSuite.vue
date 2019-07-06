@@ -11,6 +11,14 @@
       <v-flex
           md12
       >
+
+<!-- TEMPORARY dump of status indicators. Incorporate into view later -->
+<status-indicator active></status-indicator>
+<status-indicator positive></status-indicator>
+<status-indicator intermediary></status-indicator>
+<status-indicator negative></status-indicator>
+<status-indicator pulse></status-indicator>
+
         <material-card
             :text="$t('DotView.tableSubHeader')"
             :title="$t('DotView.tableHeader')"
@@ -25,12 +33,6 @@
               :end="end"
               @filter-change="filterChanged"
           >
-            <template slot="toggle-children-icon" slot-scope="props">
-              <span>
-                <i class="mdi mdi-minus" v-if="props.expanded"></i>
-                <i class="mdi mdi-plus" v-else></i>
-              </span>
-            </template>
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -41,6 +43,7 @@
 <script>
   import { SuiteService } from 'suite-service'
   import {mapState} from 'vuex'
+  import 'status-indicator/styles.css'
 
   const suiteService = new SuiteService();
 
@@ -61,7 +64,7 @@
         },
         {
           property: 'state',
-          title: 'Cycle Point',
+          title: 'State',
           direction: null,
           filterable: false
         }
