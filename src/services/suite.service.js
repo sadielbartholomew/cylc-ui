@@ -122,7 +122,7 @@ query dot($wIds: [ID], $nIds: [ID], $nStates: [String], $minDepth: Int, $maxDept
     }
     treeDepth
   }
-  familyProxies(workflows: $wIds, ids: ["root"]) {
+  familyProxies(workflows: $wIds) {
     ...dotNest
     childFamilies(mindepth: $minDepth, maxdepth: $maxDepth) {
       ...dotNest
@@ -139,7 +139,6 @@ query dot($wIds: [ID], $nIds: [ID], $nStates: [String], $minDepth: Int, $maxDept
   }
 }
 `;
-
 
 
 export class SuiteService {

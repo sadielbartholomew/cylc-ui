@@ -40,14 +40,6 @@
               :end="end"
               @filter-change="filterChanged"
           >
-
-          <!-- <template slot="state">
-              <span>
-                <i class="mdi mdi-minus" v-if="props.expanded"></i>
-                <i class="mdi mdi-plus" v-else></i>
-              </span>
-          </template> -->
-
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -71,8 +63,15 @@
     data: () => ({
       columns: [
         {
+          property: 'cyclePoint',
+          title: 'Cycle Point',
+          direction: null,
+          filterable: true,
+          collapseIcon: true
+        },
+        {
           property: 'name',
-          title: 'Task Name',
+          title: 'Task',
           direction: null,
           filterable: true,
           collapseIcon: true
