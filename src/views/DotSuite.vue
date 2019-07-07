@@ -1,3 +1,7 @@
+<style>
+@import '~@/styles/status-indicator/resize.css';
+</style>
+
 <template>
   <v-container
       fill-height
