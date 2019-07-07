@@ -16,7 +16,7 @@ const suitesQuery = gql`{
 }
 `;
 
-// query to retrieve all tasks for a given suite
+// query to retrieve all tasks for a given suite for the Tree View.
 const tasksQuery = gql`fragment treeNest on FamilyProxy {
   name
   cyclePoint
@@ -82,6 +82,66 @@ query tree($wIds: [ID], $nIds: [ID], $nStates: [String], $minDepth: Int, $maxDep
 }
 `;
 
+
+
+// query to retrieve all tasks for a given suite for the Dot View.
+const dotTasksQuery = gql`fragment dotNest on FamilyProxy {
+  name
+  cyclePoint
+  state
+  depth
+  childTasks(ids: $nIds, states: $nStates, mindepth: $minDepth, maxdepth: $maxDepth) {
+    id
+    task {
+      name
+    }
+    state
+    latestMessage
+    depth
+  }
+}
+query dot($wIds: [ID], $nIds: [ID], $nStates: [String], $minDepth: Int, $maxDepth: Int) {
+  workflows(ids: $wIds) {
+    id
+    name
+    status
+    stateTotals {
+      runahead
+      waiting
+      held
+      queued
+      expired
+      ready
+      submitFailed
+      submitRetrying
+      submitted
+      retrying
+      running
+      failed
+      succeeded
+    }
+    treeDepth
+  }
+  familyProxies(workflows: $wIds, ids: ["root"]) {
+    ...dotNest
+    childFamilies(mindepth: $minDepth, maxdepth: $maxDepth) {
+      ...dotNest
+      childFamilies(mindepth: $minDepth, maxdepth: $maxDepth) {
+        ...dotNest
+        childFamilies(mindepth: $minDepth, maxdepth: $maxDepth) {
+          ...dotNest
+          childFamilies(mindepth: $minDepth, maxdepth: $maxDepth) {
+            ...dotNest
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+
+
 export class SuiteService {
 
   constructor() {
@@ -145,7 +205,7 @@ export class SuiteService {
 
   fetchSuiteDotView(suiteId) {
     return this.apolloClient.query({
-      query: tasksQuery,
+      query: dotTasksQuery,
       variables: {
         wIds: [suiteId],
         minDepth: 0,

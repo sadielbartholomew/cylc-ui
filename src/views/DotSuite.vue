@@ -29,11 +29,11 @@
         <material-card
             :text="$t('DotView.tableSubHeader')"
             :title="$t('DotView.tableHeader')"
-            color="green"
+            color="indigo"
         >
           <vue-ads-table
               :columns="columns"
-              :rows="tree"
+              :rows="dot"
               :classes="classes"
               :filter="filter"
               :start="start"
@@ -86,7 +86,6 @@
       ],
       classes: {
         table: "v-table",
-        '0/all': {'column text-xs-left': true}
       },
       // vue-ads-table-tree filtering (even if not enabled, we need this)
       filter: '',
@@ -131,7 +130,7 @@
     },
     computed: {
       // namespace: module suites, and property suites, hence these repeated tokens...
-      ...mapState('suites', ['tasks', 'tree']),
+      ...mapState('suites', ['tasks', 'dot']),
       ...mapState(['isLoading'])
     },
     mounted: function () {
