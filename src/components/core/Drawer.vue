@@ -102,13 +102,7 @@ export default {
       {
         to: '/suites',
         icon: 'mdi-vector-circle',
-        text: 'Suites',
-        view: true
-      },
-      {
-        to: '/todotsuites',
-        icon: 'mdi-vector-circle',
-        text: 'Suites links to Dot View [temp]',
+        text: 'Views via Suites Listing',
         view: true
       },
       {
