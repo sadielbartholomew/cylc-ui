@@ -86,12 +86,16 @@ query tree($wIds: [ID], $nIds: [ID], $nStates: [String], $minDepth: Int, $maxDep
 
 // query to retrieve all tasks for a given suite for the Dot View.
 const dotTasksQuery = gql`fragment dotNest on FamilyProxy {
-  depth
   cyclePoint
+  depth
   childTasks(ids: $nIds, states: $nStates, mindepth: $minDepth, maxdepth: $maxDepth) {
     id
     task {
       name
+      proxies {
+        cyclePoint
+        state
+      }
     }
     state
     latestMessage

@@ -76,7 +76,7 @@
         },
         {
           property: 'state',
-          title: 'State',
+          title: 'SOME CP',
           direction: null,
           filterable: true,
         },
@@ -127,7 +127,7 @@
     },
     computed: {
       // namespace: module suites, and property suites, hence these repeated tokens...
-      ...mapState('suites', ['familyProxies', 'dot']),
+      ...mapState('suites', ['tasks', 'dot']),
       ...mapState(['isLoading']),
       //allCyclePoints: function () {
       //  var allColumns = {};
@@ -142,6 +142,7 @@
       //  }
       //  return allColumns
       //}
+      //getCP:
     },
     mounted: function () {
       this.fetchSuite()
