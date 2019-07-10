@@ -49,7 +49,7 @@
 
 <script>
   import { SuiteService } from 'suite-service'
-  import {mapState} from 'vuex'
+  import { mapState } from 'vuex'
   import 'status-indicator/styles.css'
 
   const suiteService = new SuiteService();
@@ -63,25 +63,23 @@
     data: () => ({
       columns: [
         {
+          property: 'name',
+          title: 'Task Name',
+          direction: null,
+          filterable: true,
+        },
+        {
           property: 'cyclePoint',
           title: 'Cycle Point',
           direction: null,
           filterable: true,
-          collapseIcon: true
-        },
-        {
-          property: 'name',
-          title: 'Task',
-          direction: null,
-          filterable: true,
-          collapseIcon: true
         },
         {
           property: 'state',
           title: 'State',
           direction: null,
-          filterable: false
-        }
+          filterable: true,
+        },
       ],
       classes: {
         table: "v-table",
@@ -129,11 +127,24 @@
     },
     computed: {
       // namespace: module suites, and property suites, hence these repeated tokens...
-      ...mapState('suites', ['tasks', 'dot']),
-      ...mapState(['isLoading'])
+      ...mapState('suites', ['familyProxies', 'dot']),
+      ...mapState(['isLoading']),
+      //allCyclePoints: function () {
+      //  var allColumns = {};
+      //  for (point of cyclePoint) {
+      //    allColumns.push({
+      //      property: point,
+      //      title: point,
+      //      direction: null,
+      //      filterable: true,
+      //      collapseIcon: true
+      //    })
+      //  }
+      //  return allColumns
+      //}
     },
     mounted: function () {
       this.fetchSuite()
-    }
+    },
   }
 </script>
