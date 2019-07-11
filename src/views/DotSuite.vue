@@ -1,7 +1,3 @@
-<style>
-@import '~@/styles/status-indicator/resize.css';
-</style>
-
 <template>
   <v-container
       fill-height
@@ -16,15 +12,8 @@
           md12
       >
 
-<!-- TEMPORARY dump of status indicators. Incorporate into view later -->
-<status-indicator active></status-indicator>
-<status-indicator positive></status-indicator>
-<status-indicator intermediary></status-indicator>
-<status-indicator negative></status-indicator>
-<status-indicator></status-indicator>
 
-<status-indicator active pulse></status-indicator>
-<status-indicator positive pulse></status-indicator>
+
 
         <material-card
             :text="$t('DotView.tableSubHeader')"
@@ -40,6 +29,7 @@
               :end="end"
               @filter-change="filterChanged"
           >
+          Here!
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -50,11 +40,14 @@
 <script>
   import { SuiteService } from 'suite-service'
   import { mapState } from 'vuex'
-  import 'status-indicator/styles.css'
+  //import Dot from "@/components/cylc/Dot"
 
   const suiteService = new SuiteService();
 
   export default {
+    //components: {
+    //  someDot: Dot
+    //  },
     metaInfo() {
       return {
         title: 'Cylc UI | Dot View ' + this.$route.params.name
@@ -92,7 +85,7 @@
       // TODO: page polling, for the time being until we have websockets/graphql subscriptions
       polling: null,
       // Status indicator icon class to replace each task state with
-      state_icon_mappings: {
+      stateClassMappings: {
           'runahead': 'intermediary',
           'waiting': 'intermediary',
           'held': 'intermediary',
@@ -126,23 +119,21 @@
       clearInterval(this.polling)
     },
     computed: {
-      // namespace: module suites, and property suites, hence these repeated tokens...
       ...mapState('suites', ['tasks', 'dot']),
       ...mapState(['isLoading']),
-      //allCyclePoints: function () {
-      //  var allColumns = {};
-      //  for (point of cyclePoint) {
-      //    allColumns.push({
-      //      property: point,
-      //      title: point,
-      //      direction: null,
-      //      filterable: true,
-      //      collapseIcon: true
-      //    })
+      //stateStringToDot () {
+      //  var category = 'active';
+      //   let dotIcon = this.stateString.replace(taskState);
+      //  return {
+      //    template: '<div>' + 'example' + '</div>',
+      //    props: {
+      //      category: {
+      //        type: null,
+      //        default: () => { return this.category }
+      //      }
+      //    }
       //  }
-      //  return allColumns
       //}
-      //getCP:
     },
     mounted: function () {
       this.fetchSuite()
