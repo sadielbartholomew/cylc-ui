@@ -12,8 +12,7 @@
           md12
       >
 
-
-
+      <someDot></someDot>
 
         <material-card
             :text="$t('DotView.tableSubHeader')"
@@ -29,7 +28,7 @@
               :end="end"
               @filter-change="filterChanged"
           >
-          Here!
+            <template slot="state" slot-scope="props">{{ props.column.property === held ? 'held' : dotComponent }}</template>
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -40,14 +39,14 @@
 <script>
   import { SuiteService } from 'suite-service'
   import { mapState } from 'vuex'
-  //import Dot from "@/components/cylc/Dot"
+  import Dot from "@/components/cylc/Dot"
 
   const suiteService = new SuiteService();
 
   export default {
-    //components: {
-    //  someDot: Dot
-    //  },
+    components: {
+      someDot: Dot
+      },
     metaInfo() {
       return {
         title: 'Cylc UI | Dot View ' + this.$route.params.name
@@ -69,7 +68,7 @@
         },
         {
           property: 'state',
-          title: 'SOME CP',
+          title: 'SOMETHING',
           direction: null,
           filterable: true,
         },
@@ -84,22 +83,6 @@
       end: 100,
       // TODO: page polling, for the time being until we have websockets/graphql subscriptions
       polling: null,
-      // Status indicator icon class to replace each task state with
-      stateClassMappings: {
-          'runahead': 'intermediary',
-          'waiting': 'intermediary',
-          'held': 'intermediary',
-          'queued': 'intermediary',
-          'expired': 'negative',
-          'ready': '',
-          'submitFailed': 'negative',
-          'submitRetrying': '',
-          'submitted': '',
-          'retrying': '',
-          'running': 'active',
-          'failed': 'negative',
-          'succeeded': 'positive'
-      }
     }),
     methods: {
       filterChanged (filter) {
@@ -113,6 +96,9 @@
           suiteService.currentTaskIndex += 1
           suiteService.fetchSuiteDotView(suiteId)
         }, 3000)
+      },
+      stateStringToDot (taskState) {
+        return state.replace(taskState, "DOT");
       }
     },
     beforeDestroy() {
@@ -121,19 +107,12 @@
     computed: {
       ...mapState('suites', ['tasks', 'dot']),
       ...mapState(['isLoading']),
-      //stateStringToDot () {
-      //  var category = 'active';
-      //   let dotIcon = this.stateString.replace(taskState);
-      //  return {
-      //    template: '<div>' + 'example' + '</div>',
-      //    props: {
-      //      category: {
-      //        type: null,
-      //        default: () => { return this.category }
-      //      }
-      //    }
-      //  }
-      //}
+      dotColumns () {
+        return 'yo' //this.columns[0]
+      },
+      dotComponent: function() {
+        return '<someDot></someDot>'
+      }
     },
     mounted: function () {
       this.fetchSuite()
