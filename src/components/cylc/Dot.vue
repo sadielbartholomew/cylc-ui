@@ -3,7 +3,14 @@
 </style>
 
 <template>
-  <status-indicator v-bind:class="dotclass"></status-indicator>
+  <!-- keyword 'on' here is arbitary, it is the class name that sets this. -->
+  <status-indicator
+    v-bind:active="isActive()"
+    v-bind:positive="isPositive()"
+    v-bind:negative="isNegative()"
+    v-bind:intermediary="isIntermediary()"
+  >
+  </status-indicator>
 </template>
 
 <script>
@@ -30,13 +37,31 @@
       },
     }),
     methods: {
-      convertClass (classname) {
+      convertClass(classname) {
         if (this.stateClassMappings[classname] == null) {
           return "CLASSNAME NOT REC";
         } else {
           return this.stateClassMappings[classname];
         }
       },
-    }
+      isActive() {
+        if (false) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      isPositive() {
+        return false;
+      },
+      isNegative() {
+        return false;
+      },
+      isIntermediary() {
+        return true;
+      },
+    },
+  computed: {
+  }
   }
 </script>

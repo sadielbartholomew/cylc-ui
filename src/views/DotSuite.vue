@@ -12,11 +12,11 @@
           md12
       >
 
-      <someDot></someDot>
-
-<someDot active></someDot>
-Want blue:
-<someDot held></someDot>
+<someDot state="held"></someDot>
+<someDot></someDot>
+<someDot></someDot>
+<someDot></someDot>
+<someDot></someDot>
 
         <material-card
             :text="$t('DotView.tableSubHeader')"
@@ -102,7 +102,7 @@ Want blue:
         }, 3000)
       },
       dotComponent (taskState) {
-        return '<someDot ' +  taskState + '></someDot>'
+        return '<someDot class=' +  taskState + '></someDot>'
       },
     },
     beforeDestroy() {
@@ -111,9 +111,6 @@ Want blue:
     computed: {
       ...mapState('suites', ['tasks', 'dot']),
       ...mapState(['isLoading']),
-      dotColumns () {
-        return 'yo' //this.columns[0]
-      },
     },
     mounted: function () {
       this.fetchSuite()
