@@ -14,6 +14,10 @@
 
       <someDot></someDot>
 
+<someDot active></someDot>
+Want blue:
+<someDot held></someDot>
+
         <material-card
             :text="$t('DotView.tableSubHeader')"
             :title="$t('DotView.tableHeader')"
@@ -28,7 +32,7 @@
               :end="end"
               @filter-change="filterChanged"
           >
-            <template slot="state" slot-scope="props">{{ props.column.property === held ? 'held' : dotComponent }}</template>
+            <template slot="state" slot-scope="props">{{ dotComponent(props.row[props.column.property]) }}</template>
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -49,7 +53,7 @@
       },
     metaInfo() {
       return {
-        title: 'Cylc UI | Dot View ' + this.$route.params.name
+        title: 'Cylc UI | Dot View for "' + this.$route.params.name
       }
     },
     data: () => ({
@@ -97,9 +101,9 @@
           suiteService.fetchSuiteDotView(suiteId)
         }, 3000)
       },
-      stateStringToDot (taskState) {
-        return state.replace(taskState, "DOT");
-      }
+      dotComponent (taskState) {
+        return '<someDot ' +  taskState + '></someDot>'
+      },
     },
     beforeDestroy() {
       clearInterval(this.polling)
@@ -110,9 +114,6 @@
       dotColumns () {
         return 'yo' //this.columns[0]
       },
-      dotComponent: function() {
-        return '<someDot></someDot>'
-      }
     },
     mounted: function () {
       this.fetchSuite()
