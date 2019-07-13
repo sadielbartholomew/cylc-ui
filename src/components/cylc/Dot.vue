@@ -4,10 +4,11 @@
 
 <template>
   <status-indicator
-    :active="isActive()"
-    :positive="isPositive()"
-    :negative="isNegative()"
-    :intermediary="isIntermediary()"
+    :active="isActiveMappedState()"
+    :positive="isPositiveMappedState()"
+    :negative="isNegativeMappedState()"
+    :intermediary="isIntermediaryMappedState()"
+    :pulse="hasStateChanged"
   >
   </status-indicator>
 </template>
@@ -19,44 +20,49 @@
     props: ['dotClass'],
     data: () => ({
       // Status indicator icon class to replace each task state with:
-      stateClassMappings: {
+      stateToDotClassMappings: {
         'runahead': 'intermediary',
         'waiting': 'intermediary',
         'held': 'intermediary',
         'queued': 'intermediary',
         'expired': 'negative',
-        'ready': '',
         'submitFailed': 'negative',
-        'submitRetrying': '',
-        'submitted': '',
-        'retrying': '',
-        'running': 'active',
         'failed': 'negative',
+        'ready': '',
+        'submitted': '',
+        'submitRetrying': 'active',
+        'retrying': 'active',
+        'running': 'active',
         'succeeded': 'positive'
       },
+      hasStateChanged: false,
     }),
     methods: {
-      isActive() {
-        return this.testNotInState(this.dotClass, 'active')
+      isActiveMappedState() {
+        return this.testNotInState(this.dotClass, 'active');
       },
-      isPositive() {
-        return this.testNotInState(this.dotClass, 'positive')
+      isPositiveMappedState() {
+        return this.testNotInState(this.dotClass, 'positive');
       },
-      isNegative() {
-        return this.testNotInState(this.dotClass, 'negative')
+      isNegativeMappedState() {
+        return this.testNotInState(this.dotClass, 'negative');
       },
-      isIntermediary() {
-        return this.testNotInState(this.dotClass, 'intermediary')
+      isIntermediaryMappedState() {
+        return this.testNotInState(this.dotClass, 'intermediary');
       },
       testNotInState(stateString, requiredState) {
         if (stateString == null ||
-            this.stateClassMappings[stateString] == null ||
-            this.stateClassMappings[stateString] != requiredState) {
+            this.stateToDotClassMappings[stateString] == null ||
+            this.stateToDotClassMappings[stateString] != requiredState) {
           return false;
         } else {
           return true;
         }
       },
+      //hasStateChanged() {
+        // Sets initial value; can be changed to true elsewhere via watchers.
+      //  return false;
+      //},
     }
   }
 </script>
