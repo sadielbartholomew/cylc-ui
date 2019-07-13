@@ -3,12 +3,11 @@
 </style>
 
 <template>
-  <!-- keyword 'on' here is arbitary, it is the class name that sets this. -->
   <status-indicator
-    v-bind:active="isActive()"
-    v-bind:positive="isPositive()"
-    v-bind:negative="isNegative()"
-    v-bind:intermediary="isIntermediary()"
+    :active="isActive()"
+    :positive="isPositive()"
+    :negative="isNegative()"
+    :intermediary="isIntermediary()"
   >
   </status-indicator>
 </template>
@@ -58,8 +57,6 @@
           return true;
         }
       },
-    },
-  computed: {
-  }
+    }
   }
 </script>

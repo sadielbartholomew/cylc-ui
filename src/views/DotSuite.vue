@@ -19,21 +19,25 @@
 <someDot dotClass="running"></someDot>
 
         <material-card
-            :text="$t('DotView.tableSubHeader')"
-            :title="$t('DotView.tableHeader')"
-            color="indigo"
+          :text="$t('DotView.tableSubHeader')"
+          :title="$t('DotView.tableHeader')"
+          color="indigo"
         >
           <vue-ads-table
-              :columns="columns"
-              :rows="dot"
-              :classes="classes"
-              :filter="filter"
-              :start="start"
-              :end="end"
-              @filter-change="filterChanged"
+            :columns="columns"
+            :rows="dot"
+            :classes="classes"
+            :filter="filter"
+            :start="start"
+            :end="end"
+            @filter-change="filterChanged"
           >
-            <template slot="state" slot-scope="props">
-              <someDot dotClass="rops.row[props.column.property]"></someDot>
+            <template
+              slot="state"
+              slot-scope="props"
+              class="dotClass">
+                <someDot :dotClass="props.row[props.column.property]">
+                </someDot>
             </template>
           </vue-ads-table>
         </material-card>
@@ -82,12 +86,9 @@
       classes: {
         table: "v-table",
       },
-      // vue-ads-table-tree filtering (even if not enabled, we need this)
       filter: '',
-      // vue-ads-table-tree pagination
       start: 0,
       end: 100,
-      // TODO: page polling, for the time being until we have websockets/graphql subscriptions
       polling: null,
     }),
     methods: {
@@ -97,18 +98,11 @@
       fetchSuite() {
         const suiteId = this.$route.params.name
         suiteService.fetchSuiteDotView(suiteId)
-        // TODO: to be replaced by websockets
         this.polling = setInterval(() => {
           suiteService.currentTaskIndex += 1
           suiteService.fetchSuiteDotView(suiteId)
         }, 3000)
       },
-      dotComponent (taskState) {
-        return '<someDot dotClass="' +  taskState + '"></someDot>'
-      },
-      renderDot (item) {
-        return this.dotComponent(item)
-      }
     },
     beforeDestroy() {
       clearInterval(this.polling)
