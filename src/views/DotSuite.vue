@@ -32,7 +32,9 @@
               :end="end"
               @filter-change="filterChanged"
           >
-            <template slot="state" slot-scope="props">{{ dotComponent(props.row[props.column.property]) }}</template>
+            <template slot="state" slot-scope="props">
+              <someDot dotClass="rops.row[props.column.property]"></someDot>
+            </template>
           </vue-ads-table>
         </material-card>
       </v-flex>
@@ -104,6 +106,9 @@
       dotComponent (taskState) {
         return '<someDot dotClass="' +  taskState + '"></someDot>'
       },
+      renderDot (item) {
+        return this.dotComponent(item)
+      }
     },
     beforeDestroy() {
       clearInterval(this.polling)
