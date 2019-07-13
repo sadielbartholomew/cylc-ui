@@ -12,11 +12,11 @@
           md12
       >
 
-<someDot state="held"></someDot>
-<someDot></someDot>
-<someDot></someDot>
-<someDot></someDot>
-<someDot></someDot>
+<someDot dotClass="held"></someDot>
+<someDot dotClass="submitted"></someDot>
+<someDot dotClass="failed"></someDot>
+<someDot dotClass="succeeded"></someDot>
+<someDot dotClass="running"></someDot>
 
         <material-card
             :text="$t('DotView.tableSubHeader')"
@@ -102,7 +102,7 @@
         }, 3000)
       },
       dotComponent (taskState) {
-        return '<someDot class=' +  taskState + '></someDot>'
+        return '<someDot dotClass="' +  taskState + '"></someDot>'
       },
     },
     beforeDestroy() {

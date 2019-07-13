@@ -17,13 +17,13 @@
   import 'status-indicator/styles.css'
   export default {
     name: 'Dot',
-    props: ['dotclass'],
+    props: ['dotClass'],
     data: () => ({
       // Status indicator icon class to replace each task state with:
       stateClassMappings: {
         'runahead': 'intermediary',
         'waiting': 'intermediary',
-        'held': 'active',  // change, testing
+        'held': 'intermediary',
         'queued': 'intermediary',
         'expired': 'negative',
         'ready': '',
@@ -37,28 +37,26 @@
       },
     }),
     methods: {
-      convertClass(classname) {
-        if (this.stateClassMappings[classname] == null) {
-          return "CLASSNAME NOT REC";
-        } else {
-          return this.stateClassMappings[classname];
-        }
-      },
       isActive() {
-        if (false) {
-          return true;
-        } else {
-          return false;
-        }
+        return this.testNotInState(this.dotClass, 'active')
       },
       isPositive() {
-        return false;
+        return this.testNotInState(this.dotClass, 'positive')
       },
       isNegative() {
-        return false;
+        return this.testNotInState(this.dotClass, 'negative')
       },
       isIntermediary() {
-        return true;
+        return this.testNotInState(this.dotClass, 'intermediary')
+      },
+      testNotInState(stateString, requiredState) {
+        if (stateString == null ||
+            this.stateClassMappings[stateString] == null ||
+            this.stateClassMappings[stateString] != requiredState) {
+          return false;
+        } else {
+          return true;
+        }
       },
     },
   computed: {
