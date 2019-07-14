@@ -11,13 +11,6 @@
       <v-flex
           md12
       >
-
-<someDot dotClass="held"></someDot>
-<someDot dotClass="submitted"></someDot>
-<someDot dotClass="failed"></someDot>
-<someDot dotClass="succeeded"></someDot>
-<someDot dotClass="running"></someDot>
-
         <material-card
           :text="$t('DotView.tableSubHeader')"
           :title="$t('DotView.tableHeader')"
@@ -35,8 +28,11 @@
             <template
               slot="state"
               slot-scope="props"
-              class="dotClass">
-                <someDot :dotClass="props.row[props.column.property]">
+              class="dotClass"
+            >
+                <someDot
+                  :dotClass="props.row[props.column.property]"
+                >
                 </someDot>
             </template>
           </vue-ads-table>
@@ -57,13 +53,13 @@
     components: {
       someDot: Dot,
       watch: {
-        dotClass: function (latestState, previousState) {
+        state: function (latestState, previousState) {
           // Compare task state just received to the previous; look for change.
           if (latestState != previousState) {
-            this.hasStateChanged = true;
+            this.someDot.hasStateChanged = true;
           }
         }
-      },
+      }
     },
     metaInfo() {
       return {
@@ -86,7 +82,7 @@
         },
         {
           property: 'state',
-          title: 'SOMETHING',
+          title: 'CP HERE',
           direction: null,
           filterable: true,
         },

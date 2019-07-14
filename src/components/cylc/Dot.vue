@@ -14,6 +14,7 @@
 </template>
 
 <script>
+  // THis script customises the default 'dot' icons and animations.
   import 'status-indicator/styles.css'
   export default {
     name: 'Dot',
@@ -35,7 +36,7 @@
         'running': 'active',
         'succeeded': 'positive'
       },
-      hasStateChanged: false,
+      hasStateChanged: true,
     }),
     methods: {
       isActiveMappedState() {
@@ -58,11 +59,7 @@
         } else {
           return true;
         }
-      },
-      //hasStateChanged() {
-        // Sets initial value; can be changed to true elsewhere via watchers.
-      //  return false;
-      //},
+      }
     }
   }
 </script>
