@@ -51,19 +51,11 @@
 
   export default {
     components: {
-      someDot: Dot,
-      watch: {
-        state: function (latestState, previousState) {
-          // Compare task state just received to the previous; look for change.
-          if (latestState != previousState) {
-            this.someDot.hasStateChanged = true;
-          }
-        }
-      }
+      someDot: Dot
     },
     metaInfo() {
       return {
-        title: 'Cylc UI | Dot View for "' + this.$route.params.name
+        title: 'Cylc UI | Dot View for ' + this.$route.params.name
       }
     },
     data: () => ({

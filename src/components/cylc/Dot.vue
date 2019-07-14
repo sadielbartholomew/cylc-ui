@@ -3,25 +3,45 @@
 </style>
 
 <template>
+  <!--
+  The first group of classes below set the dot colour based on the task state.
+  The second group start, upon a state (hence colour) change for that task, and
+  stop, upon a user click onto that dot, the pulse animation.
+  -->
   <status-indicator
+
     :active="isActiveMappedState()"
     :positive="isPositiveMappedState()"
     :negative="isNegativeMappedState()"
     :intermediary="isIntermediaryMappedState()"
 
     v-on:click="dismissPulse()"
-    :pulse="isPulseOn"
-
+    :pulse="pulseOn"
   >
   </status-indicator>
 </template>
 
 <script>
-  // THis script customises the default 'dot' icons and animations.
+  // This script customises the default 'dot' icons and animations.
   import 'status-indicator/styles.css'
+
   export default {
     name: 'Dot',
-    props: ['dotClass'],
+    props: ['dotClass', 'pulseClass'],
+    watch: {
+      dotClass: function(newValue, oldValue) {
+          this.pulseOn = true
+        },
+        //deep: true,
+      //},
+      hasDotClassChanged: function (newValue, oldValue) {
+          this.pulseOn = true
+          this.isPulseOn()
+          this.startPulse()
+        },
+        //deep: true,
+      //}
+    },
     data: () => ({
       // Status indicator icon class to replace each task state with:
       stateToDotClassMappings: {
@@ -39,7 +59,7 @@
         'running': 'active',
         'succeeded': 'positive'
       },
-      isPulseOn: true
+      pulseOn: false,
     }),
     methods: {
       isActiveMappedState() {
@@ -64,12 +84,20 @@
           return true;
         }
       },
-      dismissPulse() {
-        this.isPulseOn = false;
+      startPulse() {
+        this.pulseOn = true;
       },
-      //isPulseOn() {
-      //  return true;
-      //}
+      dismissPulse() {
+        this.pulseOn = false;
+      },
+    },
+    computed: {
+      isPulseOn() {
+        return this.pulseOn;
+      },
+      hasDotClassChanged() {
+        return this.dotClass;
+      },
     }
   }
 </script>
