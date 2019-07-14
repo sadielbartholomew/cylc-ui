@@ -8,7 +8,10 @@
     :positive="isPositiveMappedState()"
     :negative="isNegativeMappedState()"
     :intermediary="isIntermediaryMappedState()"
-    :pulse="hasStateChanged"
+
+    v-on:click="dismissPulse()"
+    :pulse="isPulseOn"
+
   >
   </status-indicator>
 </template>
@@ -36,22 +39,23 @@
         'running': 'active',
         'succeeded': 'positive'
       },
-      hasStateChanged: true,
+      isPulseOn: true
     }),
     methods: {
       isActiveMappedState() {
-        return this.testNotInState(this.dotClass, 'active');
+        return this.testInState(this.dotClass, 'active');
       },
       isPositiveMappedState() {
-        return this.testNotInState(this.dotClass, 'positive');
+        return this.testInState(this.dotClass, 'positive');
       },
       isNegativeMappedState() {
-        return this.testNotInState(this.dotClass, 'negative');
+        return this.testInState(this.dotClass, 'negative');
       },
       isIntermediaryMappedState() {
-        return this.testNotInState(this.dotClass, 'intermediary');
+        return this.testInState(this.dotClass, 'intermediary');
       },
-      testNotInState(stateString, requiredState) {
+      testInState(stateString, requiredState) {
+        // For safety with 'undefined' values, check variety of negation cases:
         if (stateString == null ||
             this.stateToDotClassMappings[stateString] == null ||
             this.stateToDotClassMappings[stateString] != requiredState) {
@@ -59,7 +63,13 @@
         } else {
           return true;
         }
-      }
+      },
+      dismissPulse() {
+        this.isPulseOn = false;
+      },
+      //isPulseOn() {
+      //  return true;
+      //}
     }
   }
 </script>
