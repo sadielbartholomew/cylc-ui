@@ -1,15 +1,15 @@
 <template>
   <v-container
-      fill-height
-      fluid
-      grid-list-xl
+    fill-height
+    fluid
+    grid-list-xl
   >
     <v-layout
-        justify-center
-        wrap
+      justify-center
+      wrap
     >
       <v-flex
-          md12
+        md12
       >
         <material-card
           :text="$t('DotView.tableSubHeader')"
@@ -30,10 +30,10 @@
               slot-scope="props"
               class="dotClass"
             >
-                <someDot
-                  :dotClass="props.row[props.column.property]"
-                >
-                </someDot>
+              <taskDot
+                :dotClass="props.row[props.column.property]"
+              >
+              </taskDot>
             </template>
           </vue-ads-table>
         </material-card>
@@ -51,11 +51,11 @@
 
   export default {
     components: {
-      someDot: Dot
+      taskDot: Dot
     },
     metaInfo() {
       return {
-        title: 'Cylc UI | Dot View for ' + this.$route.params.name
+        title: 'Cylc UI | Dot View (' + this.$route.params.name + ')'
       }
     },
     data: () => ({
